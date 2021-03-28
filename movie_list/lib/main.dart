@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:sizer/sizer.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Movie list',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,13 +27,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  List<String> images = [
+    "assets/inception.jpg",
+    "assets/jurassic_world.jpg",
+    "assets/knives_out.jpg",
+    "assets/little_women.jpg",
+    "assets/mission_impossible.jpg",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +41,39 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(
-              image: AssetImage('assets/jurassic_world.jpg'),
-            ),
-          ],
-        ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              SizerUtil().init(constraints, orientation);
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        width: 100.0.w,
+                        height: 60.0.h,
+                        padding: EdgeInsets.all(1.0.h),
+                        child: Swiper(
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image.asset(images[index]);
+                          },
+                          itemCount: images.length,
+                          viewportFraction: 0.7,
+                          scale: 0.9,
+                        )),
+                    Container(
+                      width: 100.0.w,
+                      height: 40.0.h,
+                      color: Colors.amber,
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

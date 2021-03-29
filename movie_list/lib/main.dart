@@ -51,21 +51,76 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        width: 100.0.w,
-                        height: 60.0.h,
-                        padding: EdgeInsets.all(1.0.h),
-                        child: Swiper(
-                          itemBuilder: (BuildContext context, int index) {
-                            return Image.asset(images[index]);
-                          },
-                          itemCount: images.length,
-                          viewportFraction: 0.7,
-                          scale: 0.9,
-                        )),
+                      width: 100.0.w,
+                      height: 60.0.h,
+                      padding: EdgeInsets.all(1.0.h),
+                      child: Swiper(
+                        itemBuilder: (BuildContext context, int index) {
+                          return Image.asset(images[index]);
+                        },
+                        itemCount: images.length,
+                        viewportFraction: 0.7,
+                        scale: 0.9,
+                      ),
+                    ),
                     Container(
                       width: 100.0.w,
                       height: 40.0.h,
-                      color: Colors.amber,
+                      padding: EdgeInsets.all(3.0.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'Name:',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                'Inception',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'Release Date:',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                '2020-10-01',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'Rate:',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                '85',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'Description:',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                'rich text',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

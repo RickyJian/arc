@@ -53,6 +53,11 @@ flutter:
     - assets/knives_out.jpg
     - assets/little_women.jpg
     - assets/mission_impossible.jpg
+    - assets/inception.json
+    - assets/jurassic_world.json
+    - assets/knives_out.json
+    - assets/little_women.json
+    - assets/mission_impossible.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -46,6 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
               return StreamBuilder(
                 stream: itemBloc.allMovies,
                 builder: (context, AsyncSnapshot<model.Item> snapshot) {
+                  movieBloc.setMovie(
+                      snapshot.data.movies[0].name,
+                      snapshot.data.movies[0].releaseDate,
+                      snapshot.data.movies[0].rate,
+                      snapshot.data.movies[0].description);
                   return buildSwiper(snapshot);
                 },
               );
@@ -66,9 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 60.0.h,
             padding: EdgeInsets.all(1.0.h),
             child: Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return Image.asset(snapshot.data.movies[index].path);
-              },
+              itemBuilder: (BuildContext context, int index) =>
+                  Image.asset(snapshot.data.movies[index].path),
               itemCount: 5,
               viewportFraction: 0.7,
               scale: 0.9,

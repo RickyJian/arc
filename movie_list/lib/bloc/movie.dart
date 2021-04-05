@@ -2,9 +2,14 @@ import 'package:movie_list/model/item.dart' show Movie;
 import 'package:rxdart/rxdart.dart';
 
 class MovieBloc {
-  final _movieFetcher = PublishSubject<Movie>();
+  var _movieFetcher = BehaviorSubject<Movie>();
 
   Stream<Movie> get movie => _movieFetcher.stream;
+
+  MovieBloc() {
+    _movieFetcher =
+        BehaviorSubject<Movie>.seeded(Movie("", DateTime.now(), 0.0, ""));
+  }
 
   void setMovie(
           String name, DateTime releaseDate, double rate, String description) =>

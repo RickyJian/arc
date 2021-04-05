@@ -89,80 +89,98 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 100.0.w,
             height: 40.0.h,
             padding: EdgeInsets.all(3.0.h),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Name:',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    StreamBuilder(
-                      stream: movieBloc.movie,
-                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
-                        return Text(
-                          snapshot.data.name,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Wrap(
+                      children: <Widget>[
+                        Text(
+                          'Name:',
                           style: TextStyle(fontSize: 30),
-                        );
-                      },
+                        ),
+                        StreamBuilder(
+                          stream: movieBloc.movie,
+                          builder:
+                              (context, AsyncSnapshot<model.Movie> snapshot) {
+                            return Text(
+                              snapshot.data.name,
+                              style: TextStyle(fontSize: 30),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Release Date:',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    StreamBuilder(
-                      stream: movieBloc.movie,
-                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
-                        return Text(
-                          DateFormat('yyyy-MM-dd')
-                              .format(snapshot.data.releaseDate),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Wrap(
+                      children: <Widget>[
+                        Text(
+                          'Release Date:',
                           style: TextStyle(fontSize: 30),
-                        );
-                      },
+                        ),
+                        StreamBuilder(
+                          stream: movieBloc.movie,
+                          builder:
+                              (context, AsyncSnapshot<model.Movie> snapshot) {
+                            return Text(
+                              DateFormat('yyyy-MM-dd')
+                                  .format(snapshot.data.releaseDate),
+                              style: TextStyle(fontSize: 30),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Rate:',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    StreamBuilder(
-                      stream: movieBloc.movie,
-                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
-                        return Text(
-                          snapshot.data.rate.toString(),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Wrap(
+                      children: <Widget>[
+                        Text(
+                          'Rate:',
                           style: TextStyle(fontSize: 30),
-                        );
-                      },
+                        ),
+                        StreamBuilder(
+                          stream: movieBloc.movie,
+                          builder:
+                              (context, AsyncSnapshot<model.Movie> snapshot) {
+                            return Text(
+                              snapshot.data.rate.toString(),
+                              style: TextStyle(fontSize: 30),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Description:',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    StreamBuilder(
-                      stream: movieBloc.movie,
-                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
-                        return Text(
-                          snapshot.data.description,
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Wrap(
+                      children: <Widget>[
+                        Text(
+                          'Description:',
                           style: TextStyle(fontSize: 30),
-                        );
-                      },
+                        ),
+                        StreamBuilder(
+                          stream: movieBloc.movie,
+                          builder:
+                              (context, AsyncSnapshot<model.Movie> snapshot) {
+                            return Text(
+                              snapshot.data.description,
+                              style: TextStyle(fontSize: 20),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

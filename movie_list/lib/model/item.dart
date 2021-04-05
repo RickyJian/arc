@@ -13,12 +13,12 @@ class Item {
   ];
 
   int _total;
-  List<_Movie> _movieList = [];
+  List<Movie> _movieList = [];
 
   Future<Item> fetchMovies() async {
     var item = Item();
     var movieLen = _movieAssets.length;
-    List<_Movie> movieList = [];
+    List<Movie> movieList = [];
     for (int i = 0; i < movieLen; i++) {
       await getMovie(_movieAssets[i]).then((value) => movieList.add(value));
     }
@@ -27,28 +27,35 @@ class Item {
     return item;
   }
 
-  Future<_Movie> getMovie(String path) => rootBundle
+  Future<Movie> getMovie(String path) => rootBundle
       .loadString(path)
-      .then((value) => _Movie.fromJson(jsonDecode(value)));
+      .then((value) => Movie.fromJson(jsonDecode(value)));
 
   int get total => _total;
 
-  List<_Movie> get movies => _movieList;
+  List<Movie> get movies => _movieList;
 }
 
-class _Movie {
+class Movie {
   String _name;
   DateTime _releaseDate;
   double _rate;
   String _description;
   String _path;
 
-  _Movie.fromJson(Map<String, dynamic> json) {
+  Movie.fromJson(Map<String, dynamic> json) {
     _name = json["name"];
     _releaseDate = DateTime.parse(json["release_date"]);
     _rate = json["rate"] as double;
     _description = json["description"];
     _path = json["path"];
+  }
+
+  Movie(String name, DateTime releaseDate, double rate, String description) {
+    _name = name;
+    _releaseDate = releaseDate;
+    _rate = rate;
+    _description = description;
   }
 
   String get name => _name;

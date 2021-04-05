@@ -1,17 +1,16 @@
-import 'package:movie_list/model/item.dart';
-import 'package:movie_list/resource/movie.dart';
+import 'package:movie_list/model/item.dart' show Movie;
 import 'package:rxdart/rxdart.dart';
 
 class MovieBloc {
-  final _provider = MovieProvider();
-  final _movieFetcher = PublishSubject<Item>();
+  final _movieFetcher = PublishSubject<Movie>();
 
-  Stream<Item> get allMovies => _movieFetcher.stream;
+  Stream<Movie> get movie => _movieFetcher.stream;
 
-  fetchAllMovies() async =>
-      _movieFetcher.sink.add(await _provider.fetchAllMovies());
+  void setMovie(
+          String name, DateTime releaseDate, double rate, String description) =>
+      _movieFetcher.sink.add(Movie(name, releaseDate, rate, description));
 
   dispose() => _movieFetcher.close();
 }
 
-final bloc = MovieBloc();
+final movieBloc = MovieBloc();

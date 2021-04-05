@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:intl/intl.dart';
+import 'package:movie_list/bloc/item.dart';
 import 'package:movie_list/bloc/movie.dart';
 import 'package:movie_list/model/item.dart' as model;
 import 'package:sizer/sizer.dart';
@@ -31,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    bloc.fetchAllMovies();
+    itemBloc.fetchAllMovies();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -42,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context, orientation) {
               SizerUtil().init(constraints, orientation);
               return StreamBuilder(
-                stream: bloc.allMovies,
+                stream: itemBloc.allMovies,
                 builder: (context, AsyncSnapshot<model.Item> snapshot) {
                   return buildSwiper(snapshot);
                 },
@@ -55,7 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildSwiper(AsyncSnapshot<model.Item> snapshot) {
-    var a = '';
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,6 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
               itemCount: 5,
               viewportFraction: 0.7,
               scale: 0.9,
+              onIndexChanged: (int index) {
+                movieBloc.setMovie(
+                    snapshot.data.movies[index].name,
+                    snapshot.data.movies[index].releaseDate,
+                    snapshot.data.movies[index].rate,
+                    snapshot.data.movies[index].description);
+              },
             ),
           ),
           Container(
@@ -87,9 +95,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       'Name:',
                       style: TextStyle(fontSize: 30),
                     ),
-                    Text(
-                      'Inception',
-                      style: TextStyle(fontSize: 30),
+                    StreamBuilder(
+                      stream: movieBloc.movie,
+                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
+                        return Text(
+                          snapshot.data.name,
+                          style: TextStyle(fontSize: 30),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -99,9 +112,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       'Release Date:',
                       style: TextStyle(fontSize: 30),
                     ),
-                    Text(
-                      '2020-10-01',
-                      style: TextStyle(fontSize: 30),
+                    StreamBuilder(
+                      stream: movieBloc.movie,
+                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
+                        return Text(
+                          DateFormat('yyyy-MM-dd')
+                              .format(snapshot.data.releaseDate),
+                          style: TextStyle(fontSize: 30),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -111,9 +130,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       'Rate:',
                       style: TextStyle(fontSize: 30),
                     ),
-                    Text(
-                      '85',
-                      style: TextStyle(fontSize: 30),
+                    StreamBuilder(
+                      stream: movieBloc.movie,
+                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
+                        return Text(
+                          snapshot.data.rate.toString(),
+                          style: TextStyle(fontSize: 30),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -123,9 +147,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       'Description:',
                       style: TextStyle(fontSize: 30),
                     ),
-                    Text(
-                      'rich text',
-                      style: TextStyle(fontSize: 30),
+                    StreamBuilder(
+                      stream: movieBloc.movie,
+                      builder: (context, AsyncSnapshot<model.Movie> snapshot) {
+                        return Text(
+                          snapshot.data.description,
+                          style: TextStyle(fontSize: 30),
+                        );
+                      },
                     ),
                   ],
                 ),

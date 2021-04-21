@@ -1,4 +1,7 @@
+import 'package:bottom_navigation/AppScreen.dart';
+import 'package:bottom_navigation/bloc/bottom_navigation_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,28 +9,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'BottomNavigationBarBloc',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: BlocProvider<BottomNavigationBloc>(
+        create: (BuildContext context) => BottomNavigationBloc(),
+        child: AppScreen(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class SimpleBlocDelegate extends BlocObserver {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("bottom navigation"),
-      ),
-      body: Center(),
-    );
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
   }
 }

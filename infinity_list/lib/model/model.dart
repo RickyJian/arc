@@ -1,0 +1,1 @@
+export 'package:infinity_list/model/post.dart';

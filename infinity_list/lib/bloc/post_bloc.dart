@@ -14,7 +14,7 @@ part 'post_event.dart';
 part 'post_state.dart';
 
 const int _postLimit = 20;
-const String _url = 'https://jsonplaceholder.typicode.com';
+const String _url = 'jsonplaceholder.typicode.com';
 const String _method = '/posts';
 
 class PostBloc extends Bloc<PostEvent, PostState> {

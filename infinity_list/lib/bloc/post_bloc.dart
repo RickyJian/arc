@@ -20,7 +20,7 @@ const String _method = '/posts';
 class PostBloc extends Bloc<PostEvent, PostState> {
   final http.Client httpClient;
 
-  PostBloc({@required this.httpClient}) : super(PostState());
+  PostBloc({@required this.httpClient}) : super(const PostState());
 
   @override
   Stream<Transition<PostEvent, PostState>> transformEvents(
@@ -70,8 +70,13 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   }
 
   Future<List<Post>> _fetchPosts([int startIndex = 0]) async {
-    final response = await httpClient.get(Uri.https(_url, _method,
-        <String, String>{'_start': '$startIndex', '_limit': '$_postLimit'}));
+    final response = await httpClient.get(
+      Uri.https(
+        _url,
+        _method,
+        <String, String>{'_start': '$startIndex', '_limit': '$_postLimit'},
+      ),
+    );
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List;
       return data.map((dynamic json) {

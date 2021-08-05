@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stack_navigator/bloc/bottom_navigation_bloc.dart';
+import 'package:stack_navigator/view/view.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Navigator Demo',
+      title: 'tack Navigator Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -45,33 +46,34 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Navigator Demo"),
+        title: Text("Stack Navigator Demo"),
       ),
-      body: Center(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded),
-            label: 'profile',
-          )
-        ],
-        onTap: (index) {
-          // switch (index) {
-          //   case 0:
-          //     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-          //     break;
-          //   case 1:
-          //     Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-          //     break;
-          //   default:
-          //     Navigator.push(context, MaterialPageRoute(builder: (context) => NotFoundPage()));
-          //     break;
-          // }
+      body: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+        builder: (context, state) {
+          if (state is BottomNavigationHomePageLoading) {
+            return HomePage();
+          } else if (state is BottomNavigationSettingSizeLoading) {
+            return SettingSizePage();
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+      bottomNavigationBar: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+        builder: (context, state) {
+          return BottomNavigationBar(
+            currentIndex: state.index,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'setting',
+              )
+            ],
+            onTap: (index) => _bottomNavigation.add(BottomNavigationTapped(index)),
+          );
         },
       ),
     );

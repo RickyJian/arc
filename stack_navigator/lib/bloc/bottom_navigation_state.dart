@@ -25,7 +25,7 @@ class BottomNavigationHomePageLoading extends BottomNavigationState {
   String toString() => 'home page loading: $index';
 }
 
-class BottomNavigationProfileLoading extends BottomNavigationState {
+class BottomNavigationSettingSizeLoading extends BottomNavigationState {
   @override
   get index => 1;
 
@@ -33,13 +33,5 @@ class BottomNavigationProfileLoading extends BottomNavigationState {
   List<Object> get props => [];
 
   @override
-  String toString() => 'profile page loading: $index';
-}
-
-class BottomNavigationNotFoundPageLoading extends BottomNavigationState {
-  @override
-  List<Object> get props => [];
-
-  @override
-  String toString() => 'not found page loading: $index';
+  String toString() => 'setting size page loading: $index';
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stack_navigator/bloc/bottom_navigation_bloc.dart';
+import 'package:stack_navigator/bloc/bloc.dart';
 import 'package:stack_navigator/view/view.dart';
 
 void main() => runApp(MyApp());
@@ -14,8 +14,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider(
-        create: (context) => BottomNavigationBloc(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => BottomNavigationBloc(),
+          ),
+          BlocProvider(
+            create: (context) => SettingBloc(),
+          ),
+        ],
         child: MyHomePage(),
       ),
     );
@@ -53,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is BottomNavigationHomePageLoading) {
             return HomePage();
           } else if (state is BottomNavigationSettingSizeLoading) {
-            return SettingSizePage();
+            return SettingSizePage(size: SettingButton.small);
           }
           return Center(child: CircularProgressIndicator());
         },

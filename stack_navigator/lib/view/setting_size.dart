@@ -1,62 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stack_navigator/bloc/bloc.dart';
+import 'package:stack_navigator/view/const.dart';
+import 'package:stack_navigator/widget/widget.dart';
 
 class SettingSizePage extends StatelessWidget {
-  static const buttonSizeHeight = 70.0;
-  static const buttonSizeWidth = 150.0;
-
   @override
   Widget build(BuildContext context) {
+    SettingBloc settingBloc = BlocProvider.of<SettingBloc>(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: buttonSizeHeight,
-            width: buttonSizeWidth,
-            child: OutlinedButton(
-              onPressed: () {
-                print('Large');
-              },
-              child: const Text('Large'),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-          ),
-          SizedBox(
-            height: buttonSizeHeight,
-            width: buttonSizeWidth,
-            child: OutlinedButton(
-              onPressed: () {
-                print('Medium');
-              },
-              child: const Text('Medium'),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-          ),
-          SizedBox(
-            height: buttonSizeHeight,
-            width: buttonSizeWidth,
-            child: OutlinedButton(
-              onPressed: () {
-                print('Small');
-              },
-              child: const Text('Small'),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-          ),
-          TextButton(
-            onPressed: () {
-              print('dispatch to color setting');
-            },
-            child: const Text('color setting >>'),
-          ),
-        ],
+      child: BlocBuilder<SettingBloc, SettingState>(
+        builder: (context, state) {
+          var selected = SettingButton.small;
+          if (state is SettingSizeClicked) {
+            selected = state.selected;
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SettingColumn(
+                selected: selected,
+                items: [SettingButton.large, SettingButton.medium, SettingButton.small],
+                onPressed: (selected) => settingBloc.add(SettingSizeClick(size: selected)),
+              ),
+              TextButton(
+                onPressed: () {
+                  print('dispatch to color setting');
+                },
+                child: const Text('color setting >>'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

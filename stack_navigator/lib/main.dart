@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             create: (context) => BottomNavigationBloc(),
           ),
           BlocProvider(
-            create: (context) => SettingBloc(),
+            create: (context) => SettingBloc()..add(SettingSizeClick(size: SettingButton.small)),
           ),
         ],
         child: MyHomePage(),
@@ -36,17 +36,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late BottomNavigationBloc _bottomNavigation;
+  late SettingBloc _setting;
 
   @override
   void initState() {
     super.initState();
     _bottomNavigation = context.read<BottomNavigationBloc>();
+    _setting = context.read<SettingBloc>();
   }
 
   @override
   void dispose() {
     super.dispose();
     _bottomNavigation.close();
+    _setting.close();
   }
 
   @override
@@ -60,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is BottomNavigationHomePageLoading) {
             return HomePage();
           } else if (state is BottomNavigationSettingSizeLoading) {
-            return SettingSizePage(size: SettingButton.small);
+            return SettingSizePage();
           }
           return Center(child: CircularProgressIndicator());
         },

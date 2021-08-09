@@ -1,4 +1,6 @@
 // Home page const and enum
+
+
 const currentTime = 'Current Time:';
 const dateTimeFormat = 'yyyy-MM-dd hh:mm:ss';
 
@@ -17,3 +19,19 @@ extension ParseToString on SettingButton {
     }
   }
 }
+
+extension ToSize on SettingButton {
+  double toSize() {
+    switch (this) {
+      case SettingButton.large:
+        return 40.0;
+      case SettingButton.medium:
+        return 30.0;
+      case SettingButton.small:
+        return 20.0;
+    }
+  }
+}
+
+// Setting size const and enum
+const double defaultSize = 20.0;

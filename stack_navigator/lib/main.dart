@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (context) => RouterBloc()..add(SettingPageRedirect(index: 0)),
+          ),
+          BlocProvider(
             create: (context) => BottomNavigationBloc(),
           ),
           BlocProvider(
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is BottomNavigationHomePageLoading) {
             return HomePage();
           } else if (state is BottomNavigationSettingSizeLoading) {
-            return SettingSizePage();
+            return SettingRouter();
           }
           return Center(child: CircularProgressIndicator());
         },

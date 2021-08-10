@@ -8,6 +8,7 @@ import 'package:stack_navigator/widget/widget.dart';
 class SettingColorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    RouterBloc routerBloc = BlocProvider.of<RouterBloc>(context);
     SettingBloc settingBloc = BlocProvider.of<SettingBloc>(context);
     return Center(
       child: BlocBuilder<SettingBloc, SettingState>(
@@ -25,9 +26,7 @@ class SettingColorPage extends StatelessWidget {
                 onPressed: (selected) => settingBloc.add(SettingColorClick(color: selected)),
               ),
               TextButton(
-                onPressed: () {
-                  print('dispatch to format setting');
-                },
+                onPressed: () => routerBloc.add(SettingPageRedirect(index: 2)),
                 child: const Text('format setting >>'),
               ),
             ],

@@ -8,6 +8,7 @@ import 'package:stack_navigator/widget/widget.dart';
 class SettingSizePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    RouterBloc routerBloc = BlocProvider.of<RouterBloc>(context);
     SettingBloc settingBloc = BlocProvider.of<SettingBloc>(context);
     return Center(
       child: BlocBuilder<SettingBloc, SettingState>(
@@ -25,9 +26,7 @@ class SettingSizePage extends StatelessWidget {
                 onPressed: (selected) => settingBloc.add(SettingSizeClick(size: selected)),
               ),
               TextButton(
-                onPressed: () {
-                  print('dispatch to color setting');
-                },
+                onPressed: () => routerBloc.add(SettingPageRedirect(index: 1)),
                 child: const Text('color setting >>'),
               ),
             ],

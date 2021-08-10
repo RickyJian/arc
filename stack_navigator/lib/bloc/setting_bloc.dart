@@ -17,6 +17,8 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   ) async* {
     if (event is SettingSizeClick) {
       yield SettingSizeClicked(selected: event.size);
+    } else if (event is SettingColorClick) {
+      yield SettingColorClicked(selected: event.color);
     }
   }
 }

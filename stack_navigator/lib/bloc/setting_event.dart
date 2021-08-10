@@ -15,3 +15,15 @@ class SettingSizeClick extends SettingEvent {
   @override
   String toString() => 'setting size page button click: ${size.string()}';
 }
+
+class SettingColorClick extends SettingEvent {
+  final SettingButton color;
+
+  SettingColorClick({required this.color});
+
+  @override
+  List<Object?> get props => [color];
+
+  @override
+  String toString() => 'setting color page button click: ${color.string()}';
+}

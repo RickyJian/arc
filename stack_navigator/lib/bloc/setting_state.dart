@@ -17,3 +17,12 @@ class SettingSizeClicked extends SettingState {
   @override
   List<Object> get props => [selected];
 }
+
+class SettingColorClicked extends SettingState {
+  final SettingButton selected;
+
+  SettingColorClicked({required this.selected});
+
+  @override
+  List<Object> get props => [selected];
+}

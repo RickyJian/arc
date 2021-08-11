@@ -27,3 +27,15 @@ class SettingColorClick extends SettingEvent {
   @override
   String toString() => 'setting color page button click: ${color.string()}';
 }
+
+class SettingFormatClick extends SettingEvent {
+  final SettingButton format;
+
+  SettingFormatClick({required this.format});
+
+  @override
+  List<Object?> get props => [format];
+
+  @override
+  String toString() => 'setting format page button click: ${format.string()}';
+}

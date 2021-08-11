@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 
 const currentTime = 'Current Time:';
-const dateTimeFormat = 'yyyy-MM-dd hh:mm:ss';
 
 // Setting common const and enum
-enum SettingButton { large, medium, small, black, red, blue }
+enum SettingButton { large, medium, small, black, red, blue, datetime, date, time }
 
 extension ParseToString on SettingButton {
   String string() {
@@ -23,6 +22,12 @@ extension ParseToString on SettingButton {
         return "Red";
       case SettingButton.blue:
         return "Blue";
+      case SettingButton.datetime:
+        return "Datetime";
+      case SettingButton.date:
+        return "Date";
+      case SettingButton.time:
+        return "Time";
     }
   }
 }
@@ -41,6 +46,12 @@ extension ToSize on SettingButton {
       case SettingButton.red:
         return defaultSize;
       case SettingButton.blue:
+        return defaultSize;
+      case SettingButton.datetime:
+        return defaultSize;
+      case SettingButton.date:
+        return defaultSize;
+      case SettingButton.time:
         return defaultSize;
     }
   }
@@ -61,6 +72,37 @@ extension ToColor on SettingButton {
         return Colors.red;
       case SettingButton.blue:
         return Colors.blue;
+      case SettingButton.datetime:
+        return defaultColor;
+      case SettingButton.date:
+        return defaultColor;
+      case SettingButton.time:
+        return defaultColor;
+    }
+  }
+}
+
+extension Format on SettingButton {
+  String format() {
+    switch (this) {
+      case SettingButton.large:
+        return defaultFormat;
+      case SettingButton.medium:
+        return defaultFormat;
+      case SettingButton.small:
+        return defaultFormat;
+      case SettingButton.black:
+        return defaultFormat;
+      case SettingButton.red:
+        return defaultFormat;
+      case SettingButton.blue:
+        return defaultFormat;
+      case SettingButton.datetime:
+        return 'yyyy-MM-dd hh:mm:ss';
+      case SettingButton.date:
+        return 'yyyy-MM-dd';
+      case SettingButton.time:
+        return 'hh:mm:ss';
     }
   }
 }
@@ -70,3 +112,6 @@ const double defaultSize = 20.0;
 
 // Setting color const and enum
 const Color defaultColor = Colors.black;
+
+// Setting format const and enum
+const String defaultFormat = 'yyyy-MM-dd hh:mm:ss';

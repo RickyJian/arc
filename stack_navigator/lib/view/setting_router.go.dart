@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stack_navigator/bloc/bloc.dart';
 import 'package:stack_navigator/view/setting_color.dart';
+import 'package:stack_navigator/view/setting_format.dart';
 import 'package:stack_navigator/view/setting_size.dart';
 
 class SettingRouter extends StatefulWidget {
@@ -23,6 +24,7 @@ class _SettingRouter extends State<SettingRouter> {
           children: <Widget>[
             SettingSizePage(),
             SettingColorPage(),
+            SettingFormatPage(),
           ],
         );
       },

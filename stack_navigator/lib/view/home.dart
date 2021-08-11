@@ -20,6 +20,10 @@ class HomePage extends StatelessWidget {
           if (state is SettingColorClicked) {
             textColor = state.selected.toColor();
           }
+          var formatter = DateFormat(defaultFormat);
+          if (state is SettingFormatClicked) {
+            formatter = DateFormat(state.selected.format());
+          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -36,7 +40,6 @@ class HomePage extends StatelessWidget {
               TimerBuilder.periodic(
                 Duration(seconds: 1),
                 builder: (context) {
-                  DateFormat formatter = DateFormat(dateTimeFormat);
                   return Text(
                     formatter.format(DateTime.now()),
                     style: TextStyle(

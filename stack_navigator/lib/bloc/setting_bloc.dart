@@ -19,6 +19,8 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       yield SettingSizeClicked(selected: event.size);
     } else if (event is SettingColorClick) {
       yield SettingColorClicked(selected: event.color);
+    } else if (event is SettingFormatClick) {
+      yield SettingFormatClicked(selected: event.format);
     }
   }
 }

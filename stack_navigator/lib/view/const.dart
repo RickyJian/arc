@@ -1,5 +1,7 @@
 // Home page const and enum
 
+import 'package:flutter/material.dart';
+
 const currentTime = 'Current Time:';
 const dateTimeFormat = 'yyyy-MM-dd hh:mm:ss';
 
@@ -35,14 +37,36 @@ extension ToSize on SettingButton {
       case SettingButton.small:
         return 20.0;
       case SettingButton.black:
-        return 0.0;
+        return defaultSize;
       case SettingButton.red:
-        return 0.0;
+        return defaultSize;
       case SettingButton.blue:
-        return 0.0;
+        return defaultSize;
+    }
+  }
+}
+
+extension ToColor on SettingButton {
+  Color toColor() {
+    switch (this) {
+      case SettingButton.large:
+        return defaultColor;
+      case SettingButton.medium:
+        return defaultColor;
+      case SettingButton.small:
+        return defaultColor;
+      case SettingButton.black:
+        return Colors.black;
+      case SettingButton.red:
+        return Colors.red;
+      case SettingButton.blue:
+        return Colors.blue;
     }
   }
 }
 
 // Setting size const and enum
 const double defaultSize = 20.0;
+
+// Setting color const and enum
+const Color defaultColor = Colors.black;

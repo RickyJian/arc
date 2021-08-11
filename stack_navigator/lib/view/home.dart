@@ -16,6 +16,10 @@ class HomePage extends StatelessWidget {
           if (state is SettingSizeClicked) {
             fontSize = state.selected.toSize();
           }
+          var textColor = defaultColor;
+          if (state is SettingColorClicked) {
+            textColor = state.selected.toColor();
+          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -23,6 +27,7 @@ class HomePage extends StatelessWidget {
                 currentTime,
                 style: TextStyle(
                   fontSize: fontSize,
+                  color: textColor,
                 ),
               ),
               Padding(
@@ -36,6 +41,7 @@ class HomePage extends StatelessWidget {
                     formatter.format(DateTime.now()),
                     style: TextStyle(
                       fontSize: fontSize,
+                      color: textColor,
                     ),
                   );
                 },

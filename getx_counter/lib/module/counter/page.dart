@@ -4,8 +4,11 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:getx_counter/module/counter/controller.dart';
 import 'package:sizer/sizer.dart';
 
+import 'component.dart';
+import 'const.dart';
+
 class CounterPage extends StatelessWidget {
-  final CounterController c = Get.put(CounterController());
+  final CounterController controller = Get.put(CounterController());
 
   CounterPage({Key? key}) : super(key: key);
 
@@ -30,25 +33,40 @@ class CounterPage extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _button(
-                  icon: Icons.add,
-                  onPressed: c.increase,
-                ),
-                _partition(),
-                _button(
-                  icon: Icons.remove,
-                  onPressed: c.decrease,
-                ),
-                _partition(),
-                _button(
-                  icon: Icons.refresh,
-                  onPressed: c.reset,
-                ),
-              ],
-            )
+            _groupWidget(widgets: <Widget>[
+              _button(
+                icon: Icons.add,
+                onPressed: controller.increase,
+              ),
+              _partition(),
+              _button(
+                icon: Icons.remove,
+                onPressed: controller.decrease,
+              ),
+              _partition(),
+              _button(
+                icon: Icons.refresh,
+                onPressed: controller.reset,
+              ),
+            ]),
+            GetX<CounterController>(
+              init: CounterController(),
+              builder: (info) => _ratios(
+                name: '$ratioTheme:',
+                items: <Ratio>[LightRatio(), DarkRatio()],
+                defaultItem: info.groupTheme.value,
+                onChanged: (value) => controller.changeTheme(value),
+              ),
+            ),
+            GetX<CounterController>(
+              init: CounterController(),
+              builder: (info) => _ratios(
+                name: '$ratioLanguage:',
+                items: <Ratio>[EnglishRatio(), ChineseRatio()],
+                defaultItem: info.groupLanguage.value,
+                onChanged: (value) => controller.changeLanguage(value),
+              ),
+            ),
           ],
         ),
       ),
@@ -70,6 +88,44 @@ class CounterPage extends StatelessWidget {
         child: Icon(icon),
         onPressed: onPressed,
       ),
+    );
+  }
+
+  Widget _radio({required Ratio ratio, required String groupValue, required ValueChanged onChanged}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Radio(
+          value: ratio.toString(),
+          groupValue: groupValue,
+          onChanged: onChanged,
+        ),
+        Text(ratio.toString()),
+      ],
+    );
+  }
+
+  Widget _ratios(
+      {required String name,
+      required List<Ratio> items,
+      required String defaultItem,
+      required ValueChanged onChanged}) {
+    return _groupWidget(
+      widgets: List.from([name, ...items]).map((value) {
+        if (value is String) {
+          return Text(value);
+        } else if (value is Ratio) {
+          return _radio(ratio: value, groupValue: defaultItem, onChanged: onChanged);
+        }
+        return Container();
+      }).toList(),
+    );
+  }
+
+  Widget _groupWidget({required List<Widget> widgets}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: widgets,
     );
   }
 

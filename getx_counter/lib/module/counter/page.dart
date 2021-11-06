@@ -35,16 +35,19 @@ class CounterPage extends StatelessWidget {
             ),
             _groupWidget(widgets: <Widget>[
               _button(
+                context: context,
                 icon: Icons.add,
                 onPressed: controller.increase,
               ),
               _partition(),
               _button(
+                context: context,
                 icon: Icons.remove,
                 onPressed: controller.decrease,
               ),
               _partition(),
               _button(
+                context: context,
                 icon: Icons.refresh,
                 onPressed: controller.reset,
               ),
@@ -73,19 +76,15 @@ class CounterPage extends StatelessWidget {
     );
   }
 
-  Widget _button({required IconData? icon, required VoidCallback? onPressed}) {
+  Widget _button({required BuildContext context, required IconData? icon, required VoidCallback? onPressed}) {
     return SizedBox(
       height: 8.h,
       width: 18.w,
       child: OutlinedButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.w),
-            ),
-          ),
+        child: Icon(
+          icon,
+          color: Theme.of(context).primaryColor,
         ),
-        child: Icon(icon),
         onPressed: onPressed,
       ),
     );

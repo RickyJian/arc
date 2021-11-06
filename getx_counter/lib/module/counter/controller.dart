@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'component.dart';
@@ -13,7 +14,14 @@ class CounterController extends GetxController {
 
   var groupTheme = ThemeRatio.light.obs;
 
-  String changeTheme(String theme) => groupTheme.value = theme;
+  void changeTheme(String theme) {
+    if (theme == ThemeRatio.light) {
+      Get.changeThemeMode(ThemeMode.light);
+    } else {
+      Get.changeThemeMode(ThemeMode.dark);
+    }
+    groupTheme.value = theme;
+  }
 
   var groupLanguage = LanguageRatio.english.obs;
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:getx_counter/i18n/i18n.dart';
 import 'package:getx_counter/module/counter/controller.dart';
 import 'package:sizer/sizer.dart';
 
 import 'component.dart';
-import 'const.dart';
 
 class CounterPage extends StatelessWidget {
   final CounterController controller = Get.put(CounterController());
@@ -16,7 +16,7 @@ class CounterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My first getx project'),
+        title: Text(Message.projectName.tr),
       ),
       body: Center(
         child: Column(
@@ -55,7 +55,7 @@ class CounterPage extends StatelessWidget {
             GetX<CounterController>(
               init: CounterController(),
               builder: (info) => _ratios(
-                name: '$ratioTheme:',
+                name: Message.projectTheme.tr,
                 items: <Ratio>[LightRatio(), DarkRatio()],
                 defaultItem: info.groupTheme.value,
                 onChanged: (value) => controller.changeTheme(value),
@@ -64,7 +64,7 @@ class CounterPage extends StatelessWidget {
             GetX<CounterController>(
               init: CounterController(),
               builder: (info) => _ratios(
-                name: '$ratioLanguage:',
+                name: Message.projectLanguage.tr,
                 items: <Ratio>[EnglishRatio(), ChineseRatio()],
                 defaultItem: info.groupLanguage.value,
                 onChanged: (value) => controller.changeLanguage(value),
@@ -99,7 +99,7 @@ class CounterPage extends StatelessWidget {
           groupValue: groupValue,
           onChanged: onChanged,
         ),
-        Text(ratio.toString()),
+        Text(ratio.toString().tr),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_counter/i18n/i18n.dart';
 
 import 'component.dart';
 
@@ -15,15 +16,14 @@ class CounterController extends GetxController {
   var groupTheme = ThemeRatio.light.obs;
 
   void changeTheme(String theme) {
-    if (theme == ThemeRatio.light) {
-      Get.changeThemeMode(ThemeMode.light);
-    } else {
-      Get.changeThemeMode(ThemeMode.dark);
-    }
+    Get.changeThemeMode(theme == ThemeRatio.dark ? ThemeMode.dark : ThemeMode.light);
     groupTheme.value = theme;
   }
 
   var groupLanguage = LanguageRatio.english.obs;
 
-  String changeLanguage(String language) => groupLanguage.value = language;
+  void changeLanguage(String language) {
+    Get.updateLocale(language == Message.chinese ? Message.chineseLocale : Message.englishLocale);
+    groupLanguage.value = language;
+  }
 }

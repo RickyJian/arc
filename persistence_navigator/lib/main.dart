@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'modules/modules.dart';
+
 void main() => runApp(const App());
 
 class App extends StatelessWidget {
@@ -8,7 +10,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'Persistence Navigator',
       home: HomePage(),
     );
@@ -16,7 +18,7 @@ class App extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final BottomItemController _bottomController = Get.put(BottomItemController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +26,26 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Persistence Navigator'),
       ),
-      body: const Center(
-        child: Text('Home page'),
+      body: GetBuilder<BottomItemController>(
+        init: _bottomController,
+        builder: (item) => Stack(
+          children: BottomItem.values
+              .map((i) => ListPage(
+                    name: i.name,
+                    isSelected: i.index == item.currentIndex.value,
+                  ))
+              .toList(),
+        ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            label: 'Mail',
-          ),
-        ],
+      bottomNavigationBar: GetBuilder<BottomItemController>(
+        init: _bottomController,
+        builder: (item) => BottomNavigationBar(
+          onTap: (index) => _bottomController.onTap(index),
+          currentIndex: item.currentIndex.value,
+          items: BottomItem.values
+              .map((i) => BottomNavigationBarItem(icon: const Icon(Icons.photo), label: i.name))
+              .toList(),
+        ),
       ),
     );
   }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'detail.dart';
 
 class ListPage extends StatelessWidget {
   final MaterialColor color;
@@ -23,7 +26,7 @@ class ListPage extends StatelessWidget {
                   style: const TextStyle(fontSize: 24.0),
                 ),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () => print(idx),
+                onTap: () => Get.to(DetailPage(color: color, index: idx)),
               ),
             ),
           );

@@ -28,14 +28,7 @@ class HomePage extends StatelessWidget {
       ),
       body: GetBuilder<BottomItemController>(
         init: _bottomController,
-        builder: (item) => Stack(
-          children: BottomItem.values
-              .map((i) => ListPage(
-                    name: i.name,
-                    isSelected: i.index == item.currentIndex.value,
-                  ))
-              .toList(),
-        ),
+        builder: (item) => ListPage(color: BottomItem.values[item.currentIndex.value].color),
       ),
       bottomNavigationBar: GetBuilder<BottomItemController>(
         init: _bottomController,

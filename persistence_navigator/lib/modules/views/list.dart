@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 
 class ListPage extends StatelessWidget {
-  final String name;
-  final bool isSelected;
+  final MaterialColor color;
+  final List<int> materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50];
 
-  const ListPage({required this.name, this.isSelected = false});
+  ListPage({required this.color});
 
   @override
-  Widget build(BuildContext context) => Offstage(
-        offstage: !isSelected,
-        child: Text(name),
+  Widget build(BuildContext context) => ListView.builder(
+        itemCount: materialIndices.length,
+        itemBuilder: (context, index) {
+          var bodyHeight = MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight!;
+          var colorBarHeight = bodyHeight / materialIndices.length;
+          var idx = materialIndices[index];
+          return Container(
+            height: colorBarHeight,
+            color: color[idx],
+            child: Center(
+              child: ListTile(
+                title: Text(
+                  '$idx',
+                  style: const TextStyle(fontSize: 24.0),
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => print(idx),
+              ),
+            ),
+          );
+        },
       );
 }

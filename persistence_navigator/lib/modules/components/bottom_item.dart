@@ -14,6 +14,17 @@ extension BottomItemExtension on BottomItem {
     }
   }
 
+  MaterialColor get color {
+    switch (this) {
+      case BottomItem.red:
+        return Colors.red;
+      case BottomItem.green:
+        return Colors.green;
+      case BottomItem.blue:
+        return Colors.blue;
+    }
+  }
+
   Icon get icon {
     switch (this) {
       case BottomItem.red:

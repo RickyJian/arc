@@ -13,6 +13,11 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       title: 'Persistence Navigator',
       home: HomePage(),
+      getPages: <GetPage>[
+        GetPage(name: ColorRouter.list.path, page: () => const ListPage(item: BottomItem.red)),
+        GetPage(name: ColorRouter.detail.path, page: () => const DetailPage(item: BottomItem.red)),
+      ],
+      initialRoute: ColorRouter.list.path,
     );
   }
 }
@@ -28,7 +33,7 @@ class HomePage extends StatelessWidget {
       ),
       body: GetBuilder<BottomItemController>(
         init: _bottomController,
-        builder: (item) => ListPage(color: BottomItem.values[item.currentIndex.value].color),
+        builder: (item) => ColorNavigator(item: BottomItem.values[item.currentIndex.value]),
       ),
       bottomNavigationBar: GetBuilder<BottomItemController>(
         init: _bottomController,

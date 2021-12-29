@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../components/components.dart';
+
 class DetailPage extends StatelessWidget {
-  final MaterialColor color;
+  final BottomItem item;
   final int index;
 
-  const DetailPage({required this.color, required this.index});
+  const DetailPage({required this.item, this.index = 0});
 
   @override
   Widget build(BuildContext context) => Material(
         child: Container(
-          color: color[index],
+          color: item.color[index],
           child: Center(
             child: Text(
-              '#${color[index]!.value.toRadixString(16).toUpperCase()}',
+              '#${item.color[index]!.value.toRadixString(16).toUpperCase()}',
               style: const TextStyle(fontSize: 40),
             ),
           ),

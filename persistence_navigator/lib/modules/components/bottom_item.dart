@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 enum BottomItem { red, green, blue }
 
 extension BottomItemExtension on BottomItem {
+  int get id {
+    switch (this) {
+      case BottomItem.red:
+        return 1;
+      case BottomItem.green:
+        return 2;
+      case BottomItem.blue:
+        return 3;
+    }
+  }
+
   String get name {
     switch (this) {
       case BottomItem.red:

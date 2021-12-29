@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:persistence_navigator/modules/modules.dart';
 
-import 'detail.dart';
+const List<int> _materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50];
 
 class ListPage extends StatelessWidget {
-  final MaterialColor color;
-  final List<int> materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50];
+  final BottomItem item;
 
-  ListPage({required this.color});
+  const ListPage({required this.item});
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-        itemCount: materialIndices.length,
+        itemCount: _materialIndices.length,
         itemBuilder: (context, index) {
           var bodyHeight = MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight!;
-          var colorBarHeight = bodyHeight / materialIndices.length;
-          var idx = materialIndices[index];
+          var colorBarHeight = bodyHeight / _materialIndices.length;
+          var idx = _materialIndices[index];
           return Container(
             height: colorBarHeight,
-            color: color[idx],
+            color: item.color[idx],
             child: Center(
               child: ListTile(
                 title: Text(
@@ -26,7 +26,7 @@ class ListPage extends StatelessWidget {
                   style: const TextStyle(fontSize: 24.0),
                 ),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () => Get.to(DetailPage(color: color, index: idx)),
+                onTap: () => Get.toNamed(ColorRouter.detail.path, id: item.id, arguments: idx),
               ),
             ),
           );
